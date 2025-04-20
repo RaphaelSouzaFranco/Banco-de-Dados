@@ -1,3 +1,5 @@
+package org.example;
+
 import java.math.BigDecimal;
 
 public class Conta {
@@ -10,9 +12,9 @@ public class Conta {
     private TipoConta tipoConta;
 
     public enum TipoConta {
-        CORRENTE("Conta Corrente"),
-        POUPANCA("Conta Poupança"),
-        SALARIO("Conta Salário");
+        CORRENTE("org.example.Conta Corrente"),
+        POUPANCA("org.example.Conta Poupança"),
+        SALARIO("org.example.Conta Salário");
 
         private final String descricao;
 
@@ -93,7 +95,7 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "Conta{" +
+        return "org.example.Conta{" +
                 "nome='" + nome + '\'' +
                 ", saldo=" + saldo +
                 ", banco='" + banco + '\'' +

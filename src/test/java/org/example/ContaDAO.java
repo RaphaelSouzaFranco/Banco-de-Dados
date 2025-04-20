@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ContaDAO {
 
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -51,7 +52,7 @@ public class ContaDAO {
             pstmt.setString(6, conta.getTipoConta().name()); // Usa o name do enum
 
             pstmt.executeUpdate();
-            System.out.println("Conta inserida com sucesso: " + conta.getNome());
+            System.out.println("org.example.Conta inserida com sucesso: " + conta.getNome());
 
 
         } catch (SQLException e) {
