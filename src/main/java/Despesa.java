@@ -20,7 +20,7 @@ public class Despesa {
         System.out.println("Data do Pagamento: " + data);
         System.out.println("Descrição: " + descricao);
         System.out.println("Valor: " + valor);
-        System.out.println("Categoria: " + categoria);
+        System.out.println("org.example.Categoria: " + categoria);
         System.out.println("Forma de Pagamento: " + formaPagamento);
         System.out.println("Status: " + (status ? "Pago" : "Pendente"));
     }
