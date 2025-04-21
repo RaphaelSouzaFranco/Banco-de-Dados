@@ -1,43 +1,46 @@
 package br.com.fiap.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 
 public class Receitas {
-    private int idReceitas ;
+    private int id_Receitas ;
+    private Date data_Recebimento;
     private double valor;
-    private String data;
-    private String origem;
-    private Date vencimento;
-    private String categoriaReceita;
     private String descricao;
+    private String categoria_Receita;
+    private String forma_Pagamento;
     private String status;
-    private String formaPagamento;
-    private int conta;
+    private int conta_id_conta;
+    private int usuario_id_usuario;
 
 
-    public Receitas(double valor, String data, String origem, int idReceitas, Date vencimento, String categoriaReceitas, String descricao, String status, String formaPagamento, int conta ) {
+    public Receitas(double valor, Date data_Recebimento, int id_Receitas, String categoria_Receita, String descricao, String status, String forma_Pagamento, int conta_id_conta, int usuario_id_usuario ) {
+        this.id_Receitas = id_Receitas;
+        this.data_Recebimento = data_Recebimento;
         this.valor = valor;
-        this.data = data;
-        this.origem = origem;
-        this.idReceitas = idReceitas;
-        this.vencimento = vencimento;
-        this.categoriaReceita = categoriaReceita;
-        this.descricao= descricao;
-        this.status= status;
-        this.formaPagamento = formaPagamento;
-        this.conta= conta;
+        this.descricao = descricao;
+        this.categoria_Receita = categoria_Receita;
+        this.forma_Pagamento = forma_Pagamento;
+        this.status = status;
+        this.conta_id_conta = conta_id_conta;
+        this.usuario_id_usuario = usuario_id_usuario;
     }
 
-    public int getConta() {
-        return conta;
+    public int getUsuario_id_usuario() {
+        return usuario_id_usuario;
     }
 
-    public void setConta(int conta) {
-        this.conta = conta;
+    public void setUsuario_id_usuario(int usuario_id_usuario) {
+        this.usuario_id_usuario = usuario_id_usuario;
     }
 
-    public Receitas(double valor, String data, String origem) {
+    public int getConta_id_conta() {
+        return conta_id_conta;
+    }
+
+    public void setConta_id_conta(int conta_id_conta) {
+        this.conta_id_conta = conta_id_conta;
     }
 
     public double getValor() {
@@ -48,36 +51,20 @@ public class Receitas {
         this.valor = valor;
     }
 
-    public String getData() {
-        return data;
+    public Date getData_Recebimento() {
+        return data_Recebimento;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setData_Recebimento(Date data_Recebimento) {
+        this.data_Recebimento = data_Recebimento;
     }
 
-    public String getOrigem() {
-        return origem;
+    public String getCategoria_Receita() {
+        return categoria_Receita;
     }
 
-    public void setOrigem(String origem) {
-        this.origem = origem;
-    }
-
-    public Date getVencimento() {
-        return vencimento;
-    }
-
-    public void setVencimento(Date vencimento) {
-        this.vencimento = vencimento;
-    }
-
-    public String getCategoriaReceita() {
-        return categoriaReceita;
-    }
-
-    public void setCategoriaReceita(String categoriaReceita) {
-        this.categoriaReceita = categoriaReceita;
+    public void setCategoria_Receita(String categoria_Receita) {
+        this.categoria_Receita = categoria_Receita;
     }
 
     public String getDescricao() {
@@ -96,36 +83,35 @@ public class Receitas {
         this.status = status;
     }
 
-    public String getFormaPagamento() {
-        return formaPagamento;
+    public String getForma_Pagamento() {
+        return forma_Pagamento;
     }
 
     public void setFormaPagamento(String formaPagamento) {
-        this.formaPagamento = formaPagamento;
+        this.forma_Pagamento = forma_Pagamento;
     }
 
-    public int getIdReceitas() {
-        return idReceitas;
+    public int getId_Receitas() {
+        return id_Receitas;
     }
 
-    public void setIdReceitas(int idReceitas) {
-        this.idReceitas = idReceitas;
+    public void setId_Receitas(int id_Receitas) {
+        this.id_Receitas = id_Receitas;
     }
 
     public Receitas() {
     }
 
     public void exibirDados() {
-        System.out.println("id: "+ idReceitas);
+        System.out.println("id: "+ id_Receitas);
         System.out.println("Valor: R$" + valor);
-        System.out.println("Data: " + data);
-        System.out.println("Origem: " + origem);
-        System.out.println("Vencimento: " + vencimento);
-        System.out.println("Categoria: " + categoriaReceita);
+        System.out.println("Data: " + data_Recebimento);
+        System.out.println("Categoria: " + categoria_Receita);
         System.out.println("Descrição: " + descricao);
         System.out.println("Status: " + status);
-        System.out.println("Forma de Pagamento: "+ formaPagamento);
-        System.out.println("Conta: "+ conta);
+        System.out.println("Forma de Pagamento: "+ forma_Pagamento);
+        System.out.println("Conta: "+ conta_id_conta);
+        System.out.println("UsuárioId: " + usuario_id_usuario);
 
     }
 }
