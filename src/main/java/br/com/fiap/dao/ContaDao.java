@@ -2,69 +2,71 @@ package br.com.fiap.dao;
 
 import br.com.fiap.model.Conta;
 
+
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContaDao {
-    public class ContaDAO {
 
-        private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-        private static final String USUARIO = "seu_usuario";
-        private static final String SENHA = "sua_senha";
+public class ContaDAO {
 
-        public List<Conta> getAll() {
-            List<Conta> contas = new ArrayList<>();
-            String sql = "SELECT * FROM CONTAS";
+    private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+    private static final String USUARIO = "seu_usuario";
+    private static final String SENHA = "sua_senha";
 
-            try (Connection conn = conectar ();
-                 Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(sql)) {
+    public List<Conta> getAll() {
+        List<Conta> contas = new ArrayList<>();
+        String sql = "SELECT * FROM CONTAS";
 
-                while (rs.next()) {
-                    Conta conta = new Conta();
-                    conta.setNome(rs.getString("NOME"));
-                    conta.setSaldo(rs.getBigDecimal("SALDO"));
-                    conta.setBanco(rs.getString("BANCO"));
-                    conta.setAgencia(rs.getString("AGENCIA"));
-                    conta.setConta(rs.getString("CONTA"));
-                    conta.setTipoConta(Conta.TipoConta.valueOf(rs.getString("TIPO_CONTA")));
-                    contas.add(conta);
-                }
+        try (Connection conn = conectar ();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
-            } catch (SQLException e) {
-                System.out.println("Erro ao consultar contas: " + e.getMessage());
-                e.printStackTrace();
+            while (rs.next()) {
+                Conta conta = new Conta("João", new BigDecimal("1000.00"), "Banco A", "001", "12345-6", Conta.TipoConta.CORRENTE);
+                conta.setNome(rs.getString("NOME"));
+                conta.setSaldo(rs.getBigDecimal("SALDO"));
+                conta.setBanco(rs.getString("BANCO"));
+                conta.setAgencia(rs.getString("AGENCIA"));
+                conta.setConta(rs.getString("CONTA"));
+                conta.setTipoConta(Conta.TipoConta.valueOf(rs.getString("TIPO_CONTA")));
+                contas.add(conta);
             }
 
-            return contas;
+        } catch (SQLException e) {
+            System.out.println("Erro ao consultar contas: " + e.getMessage());
+            e.printStackTrace();
         }
 
-        public void insert(Conta conta) {
-            String sql = "INSERT INTO CONTAS (NOME, SALDO, BANCO, AGENCIA, CONTA, TIPO_CONTA) VALUES (?, ?, ?, ?, ?, ?)";
-
-            try (Connection conn = conectar ();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-                pstmt.setString(1, conta.getNome());
-                pstmt.setBigDecimal(2, conta.getSaldo());
-                pstmt.setString(3, conta.getBanco());
-                pstmt.setString(4, conta.getAgencia());
-                pstmt.setString(5, conta.getConta());
-                pstmt.setString(6, conta.getTipoConta().name()); // Usa o name do enum
-
-                pstmt.executeUpdate();
-                System.out.println("org.example.Conta inserida com sucesso: " + conta.getNome());
-
-
-            } catch (SQLException e) {
-                System.out.println("Erro ao inserir conta: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-        private Connection conectar() throws SQLException {
-            return DriverManager.getConnection(URL, USUARIO, SENHA);
-        }
-
+        return contas;
     }
+
+    public void insert(Conta conta) {
+        String sql = "INSERT INTO CONTAS (NOME, SALDO, BANCO, AGENCIA, CONTA, TIPO_CONTA) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = conectar ();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, conta.getNome());
+            pstmt.setBigDecimal(2, conta.getSaldo());
+            pstmt.setString(3, conta.getBanco());
+            pstmt.setString(4, conta.getAgencia());
+            pstmt.setString(5, conta.getConta());
+            pstmt.setString(6, conta.getTipoConta().name()); // Usa o name do enum
+
+            pstmt.executeUpdate();
+            System.out.println("org.example.Conta inserida com sucesso: " + conta.getNome());
+
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir conta: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    private Connection conectar() throws SQLException {
+        return DriverManager.getConnection(URL, USUARIO, SENHA);
+    }
+
 }
+

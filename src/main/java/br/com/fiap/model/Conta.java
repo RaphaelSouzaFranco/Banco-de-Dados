@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class Conta {
 
+    private String idConta;
     private String nome;
     private BigDecimal saldo;
     private String banco;
@@ -32,10 +33,11 @@ public class Conta {
         }
     }
 
-    public Conta() {
+    public Conta(String joão, BigDecimal bigDecimal, String bancoA, String number, String s, TipoConta corrente) {
     }
 
-    public Conta(String nome, BigDecimal saldo, String banco, String agencia, String conta, TipoConta tipoConta) {
+    public Conta(String idConta, String nome, BigDecimal saldo, String banco, String agencia, String conta, TipoConta tipoConta) {
+        this.idConta = idConta;
         this.nome = nome;
         this.saldo = saldo;
         this.banco = banco;
@@ -44,6 +46,10 @@ public class Conta {
         this.tipoConta = tipoConta;
     }
 
+
+    public String getIdConta() { return idConta; }
+
+    public void setIdConta(String idConta) { this.idConta = idConta; }
 
     public String getNome() {
         return nome;
@@ -104,4 +110,6 @@ public class Conta {
                 ", tipoConta='" + tipoConta + '\'' +
                 '}';
     }
+
+
 }
