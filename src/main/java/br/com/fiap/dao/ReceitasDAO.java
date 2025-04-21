@@ -89,5 +89,8 @@ public class ReceitasDAO {
             throw new EntidadeNaoEncontrada("Receita com ID " + receita.getId_Receitas() + " não encontrada.");
         }
     }
+
+    public void remover(int idReceitas) {
+    }
 }
 
