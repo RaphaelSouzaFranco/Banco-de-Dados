@@ -1,4 +1,4 @@
-package org.example;
+package br.com.fiap.view;
 
 import java.math.BigDecimal;
 import java.util.List;

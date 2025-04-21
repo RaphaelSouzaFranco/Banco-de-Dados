@@ -1,7 +1,7 @@
-package org.example;
+package br.com.fiap.dao;
 
-import org.example.ConnectionFactory;
-import org.example.Receitas;
+import br.com.fiap.factory.ConnectionFactory;
+import br.com.fiap.model.Receitas;
 
 import java.sql.*;
 import java.util.ArrayList;

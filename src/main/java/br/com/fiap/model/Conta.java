@@ -1,4 +1,4 @@
-package org.example;
+package br.com.fiap.model;
 
 import java.math.BigDecimal;
 
@@ -104,6 +104,4 @@ public class Conta {
                 ", tipoConta='" + tipoConta + '\'' +
                 '}';
     }
-
-
 }

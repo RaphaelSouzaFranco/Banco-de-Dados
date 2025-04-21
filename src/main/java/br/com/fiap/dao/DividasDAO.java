@@ -1,4 +1,6 @@
-package org.example;
+package br.com.fiap.dao;
+
+import br.com.fiap.model.Dividas;
 
 import java.sql.*;
 import java.util.ArrayList;

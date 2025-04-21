@@ -1,4 +1,4 @@
-package org.example;
+package br.com.fiap.model;
 
 public class Dividas {
 

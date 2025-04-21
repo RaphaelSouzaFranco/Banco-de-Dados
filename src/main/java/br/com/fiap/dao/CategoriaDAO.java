@@ -1,4 +1,6 @@
-package org.example;
+package br.com.fiap.dao;
+
+import br.com.fiap.model.Categoria;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class CategoriaDAO {
 
             int linhasAfetadas = pstmt.executeUpdate();
             if (linhasAfetadas > 0) {
-                System.out.println("org.example.Categoria cadastrada com sucesso: " + categoria.getNome());
+                System.out.println("br.com.fiap.model.Categoria cadastrada com sucesso: " + categoria.getNome());
             }
         } catch (SQLException e) {
             System.out.println("Erro ao adicionar categoria: " + e.getMessage());
