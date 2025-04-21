@@ -1,5 +1,6 @@
 package br.com.fiap.dao;
 
+import br.com.fiap.factory.ConnectionFactory;
 import br.com.fiap.model.Dividas;
 
 import java.sql.*;

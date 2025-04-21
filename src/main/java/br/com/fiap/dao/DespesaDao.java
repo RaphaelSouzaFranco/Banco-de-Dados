@@ -21,15 +21,15 @@ public class DespesaDao {
     public void cadastrar(Despesa despesa) throws SQLException {
         PreparedStatement stm;
         stm = conexao.prepareStatement("INSERT INTO DESPESA (ID_DESPESA, VALOR, DATA_PAGAMENTO, VENCIMENTO, DESCRICAO, CATEGORIA_DESPESA, STATUS_DESPESA, RECORRENTE, USUARIO_ID_USUARIO, CONTA_ID_CONT) VALUES (seq_despesa.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        stm.setBigDecimal(2, despesa.getValor());
-        stm.setDate(3, despesa.getDataPagamento());
-        stm.setDate(4, despesa.getVencimento());
-        stm.setString(5, despesa.getDescricao());
-        stm.setString(6, despesa.getCategoriaDespesa());
-        stm.setString(7, despesa.getStatusDespesa());
-        stm.setString(8, java.lang.String.valueOf(despesa.getRecorrente()));
-        stm.setInt(9, despesa.getUsuarioId());
-        stm.setInt(10, despesa.getContaId());
+        stm.setBigDecimal(1, despesa.getValor());
+        stm.setDate(2, despesa.getDataPagamento());
+        stm.setDate(3, despesa.getVencimento());
+        stm.setString(4, despesa.getDescricao());
+        stm.setString(5, despesa.getCategoriaDespesa());
+        stm.setString(6, despesa.getStatusDespesa());
+        stm.setString(7, java.lang.String.valueOf(despesa.getRecorrente()));
+        stm.setInt(8, despesa.getUsuarioId());
+        stm.setInt(9, despesa.getContaId());
 
         stm.executeUpdate();
         System.out.println("Despesa inserida com sucesso!");

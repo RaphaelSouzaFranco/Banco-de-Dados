@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContaDao {
-    public class ContaDAO {
 
         private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
         private static final String USUARIO = "seu_usuario";
@@ -67,4 +66,4 @@ public class ContaDao {
         }
 
     }
-}
+
