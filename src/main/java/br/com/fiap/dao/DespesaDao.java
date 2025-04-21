@@ -38,16 +38,6 @@ public class DespesaDao {
         conexao.close();
     }
 
-    public Despesa pesquisar(long codigo) throws SQLException, EntidadeNaoEncontrada {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM despesa WHERE id_despesa = ?");
-        stm.setLong(1, codigo);
-        ResultSet result = stm.executeQuery();
-
-        if (!result.next()) {
-            throw new EntidadeNaoEncontrada("Despesa não encontrada.");
-        }
-        return parseDespesa(result);
-    }
 
     private Despesa parseDespesa(ResultSet result) throws SQLException{
         Long id = result.getLong("id_despesa");
@@ -71,25 +61,6 @@ public class DespesaDao {
             lista.add(parseDespesa(result));
         }
         return lista;
-    }
-
-    public void atualizar (Despesa despesa) throws SQLException, EntidadeNaoEncontrada {
-        PreparedStatement stm = conexao.prepareStatement("UPDATE despesa SET descricao = ?, valor = ?, data_pagamento = ?, vencimento = ?, categoria_despesa = ?, status_despesa = ?, recorrente = ?, usuario_id_usuario = ?, conta_id_conta = ? WHERE id_despesa = ?");
-        stm.setString(1, despesa.getDescricao());
-        stm.setBigDecimal(2, despesa.getValor());
-        stm.setDate(3, despesa.getDataPagamento());
-        stm.setDate(4, despesa.getVencimento());
-        stm.setString(5, despesa.getCategoriaDespesa());
-        stm.setString(6, despesa.getStatusDespesa());
-        stm.setString(7, String.valueOf(despesa.getRecorrente()));
-        stm.setInt(8, despesa.getUsuarioId());
-        stm.setInt(9, despesa.getContaId());
-        stm.setInt(10, despesa.getIdDespesa());
-
-        // verificar se a despesa existe
-        if (stm.executeUpdate() == 0) {
-            throw new EntidadeNaoEncontrada("Despesa não encontrada para atualização.");
-        }
     }
 
     public void remover(int idDespesa) throws SQLException, EntidadeNaoEncontrada {

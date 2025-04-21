@@ -91,6 +91,7 @@ public class ReceitasDAO {
     }
 
     public void remover(int idReceitas) {
+
     }
 }
 
