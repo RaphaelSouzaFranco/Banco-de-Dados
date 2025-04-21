@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Receitas {
     private int idReceitas ;
-    private BigDecimal valor;
+    private double valor;
     private String data;
     private String origem;
     private Date vencimento;
@@ -15,7 +15,7 @@ public class Receitas {
     private String formaPagamento;
 
 
-    public Receitas(BigDecimal valor, String data, String origem, int idReceitas, Date vencimento, String categoriaReceitas, String descricao, String status, String formaPagamento  ) {
+    public Receitas(double valor, String data, String origem, int idReceitas, Date vencimento, String categoriaReceitas, String descricao, String status, String formaPagamento  ) {
         this.valor = valor;
         this.data = data;
         this.origem = origem;
@@ -34,7 +34,7 @@ public class Receitas {
         return valor;
     }
 
-    public void setValor(BigDecimal valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
