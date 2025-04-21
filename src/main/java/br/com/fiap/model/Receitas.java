@@ -1,4 +1,4 @@
-package org.example;
+package br.com.fiap.model;
 
 public class Receitas {
     private double valor;
@@ -33,5 +33,3 @@ public class Receitas {
         System.out.println("Origem: " + origem);
     }
 }
-
-
