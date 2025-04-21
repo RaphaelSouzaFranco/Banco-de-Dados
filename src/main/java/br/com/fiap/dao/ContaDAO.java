@@ -18,7 +18,6 @@ public class ContaDAO implements AutoCloseable {
     public void cadastrar(Conta conta) throws SQLException {
         String sql = "INSERT INTO CONTA (id_conta, nome_conta, banco, saldo, tipo_conta) " +
                 "VALUES (seq_conta.nextval, ?, ?, ?, ?)";
-
         try (PreparedStatement ps = conexao.prepareStatement(sql)) {
             ps.setString(1, conta.getNomeConta());
             ps.setString(2, conta.getBanco());
@@ -50,7 +49,6 @@ public class ContaDAO implements AutoCloseable {
                 if (!result.next()) {
                     throw new EntidadeNaoEncontrada("Conta não encontrada");
                 }
-
                 Long id = result.getLong("id_conta");
                 String nome = result.getString("nome_conta");
                 String banco = result.getString("banco");
@@ -84,7 +82,6 @@ public class ContaDAO implements AutoCloseable {
 
     public void atualizar(Conta conta) throws SQLException {
         String sql = "UPDATE CONTA SET nome_conta = ?, banco = ?, saldo = ?, tipo_conta = ? WHERE id_conta = ?";
-
         try (PreparedStatement stm = conexao.prepareStatement(sql)) {
             stm.setString(1, conta.getNomeConta());
             stm.setString(2, conta.getBanco());
