@@ -47,38 +47,47 @@ public class ReceitasDAO {
     }
 
     private Receitas parseReceitas(ResultSet result) throws SQLException {
-        Long id = result.getLong("ID RECEITAS");
-        Date data_recebimento = result.getDate("DATA");
-        double valor = result.getDouble("VALOR"); // Alterado para 'double' (primitivo)
-        String descricao = result.getString("DESCRIÇÃO");
-        String categoria_receita = result.getString("CATEGORIA");
-        String forma_pagamento = result.getString("FORMA DE PAGAMENTO");
+        int id = result.getInt("ID_RECEITAS");
+        double valor = result.getDouble("VALOR");
+        Date data_recebimento = result.getDate("DATA_RECEBIMENTO");
+        String descricao = result.getString("DESCRICAO");
+        String categoria_receita = result.getString("CATEGORIA_RECEITA");
+        String forma_pagamento = result.getString("FORMA_PAGAMENTO");
         String status = result.getString("STATUS");
         int conta_id_conta = result.getInt("CONTA_ID_CONTA");
-        int usuario_id_usuario = result.getInt("USUÁRIO_ID_USUÁRIO");
+        int usuario_id_usuario = result.getInt("USUARIO_ID_USUARIO");
 
-
-        return new Receitas(valor, data_recebimento, id.intValue(), categoria_receita, descricao, status, forma_pagamento, conta_id_conta, usuario_id_usuario);
+        return new Receitas(valor, data_recebimento, id, categoria_receita, descricao, status, forma_pagamento, conta_id_conta, usuario_id_usuario);
     }
 
-    public List<Receitas> listar () throws SQLException{
+
+    public List<Receitas> listar() throws SQLException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM RECEITAS");
         ResultSet result = stm.executeQuery();
         List<Receitas> lista = new ArrayList<>();
-        while (result.next()){
+        while (result.next()) {
             lista.add(parseReceitas(result));
         }
         return lista;
     }
-    public void atualizar (Receitas receitas) throws SQLException,EntidadeNaoEncontrada{
-    PreparedStatement stm = conexao.prepareStatement("UPDATE RECEITAS SET descricao = ? ");
-    stm.setDouble(1, receitas.getValor());
-    stm.setDate(2, receitas.getData_Recebimento());
-    stm.setString(3, receitas.getDescricao());
-    stm.setString(4, receitas.getCategoria_Receita());
-    stm.setString(5, receitas.getForma_Pagamento());
-    stm.setString(6, receitas.getStatus());
-    stm.setInt(7, receitas.getConta_id_conta());
-    stm.setInt(8, receitas.getUsuario_id_usuario());
+
+    public void atualizar(Receitas receita) throws SQLException, EntidadeNaoEncontrada {
+        String sql = "UPDATE RECEITAS SET valor = ?, data_recebimento = ?, descricao = ?, categoria_receita = ?, forma_pagamento = ?, status = ?, conta_id_conta = ?, usuario_id_usuario = ? WHERE id_receitas = ?";
+        PreparedStatement stm = conexao.prepareStatement(sql);
+        stm.setDouble(1, receita.getValor());
+        stm.setDate(2, receita.getData_Recebimento());
+        stm.setString(3, receita.getDescricao());
+        stm.setString(4, receita.getCategoria_Receita());
+        stm.setString(5, receita.getForma_Pagamento());
+        stm.setString(6, receita.getStatus());
+        stm.setInt(7, receita.getConta_id_conta());
+        stm.setInt(8, receita.getUsuario_id_usuario());
+        stm.setInt(9, receita.getId_Receitas());
+
+        int linhasAfetadas = stm.executeUpdate();
+        if (linhasAfetadas == 0) {
+            throw new EntidadeNaoEncontrada("Receita com ID " + receita.getId_Receitas() + " não encontrada.");
+        }
     }
 }
+
