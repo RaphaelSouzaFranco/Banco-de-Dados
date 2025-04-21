@@ -20,7 +20,7 @@ public class DespesaDao {
 
     public void cadastrar(Despesa despesa) throws SQLException {
         PreparedStatement stm;
-        stm = conexao.prepareStatement("INSERT INTO DESPESA (ID_DESPESA, VALOR, DATA_PAGAMENTO, VENCIMENTO, DESCRICAO, CATEGORIA_DESPESA, STATUS_DESPESA, RECORRENTE, USUARIO_ID_USUARIO, CONTA_ID_CONT) VALUES (seq_despesa.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        stm = conexao.prepareStatement("INSERT INTO DESPESA (ID_DESPESA, VALOR, DATA_PAGAMENTO, VENCIMENTO, DESCRICAO, CATEGORIA_DESPESA, STATUS_DESPESA, RECORRENTE, USUARIO_ID_USUARIO, CONTA_ID_CONTA) VALUES (seq_despesa.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         stm.setBigDecimal(1, despesa.getValor());
         stm.setDate(2, despesa.getDataPagamento());
         stm.setDate(3, despesa.getVencimento());

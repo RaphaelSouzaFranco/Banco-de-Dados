@@ -8,11 +8,11 @@ import java.util.List;
 
 public class ContaDao {
 
-        private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-        private static final String USUARIO = "seu_usuario";
-        private static final String SENHA = "sua_senha";
+        private static final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl";
+        private static final String USUARIO = "RM560334";
+        private static final String SENHA = "160898";
 
-        public List<Conta> getAll() {
+        public static List<Conta> getAll() {
             List<Conta> contas = new ArrayList<>();
             String sql = "SELECT * FROM CONTAS";
 
@@ -39,7 +39,7 @@ public class ContaDao {
             return contas;
         }
 
-        public void insert(Conta conta) {
+        public static void insert(Conta conta) {
             String sql = "INSERT INTO CONTAS (NOME, SALDO, BANCO, AGENCIA, CONTA, TIPO_CONTA) VALUES (?, ?, ?, ?, ?, ?)";
 
             try (Connection conn = conectar ();
@@ -61,7 +61,7 @@ public class ContaDao {
                 e.printStackTrace();
             }
         }
-        private Connection conectar() throws SQLException {
+        private static Connection conectar() throws SQLException {
             return DriverManager.getConnection(URL, USUARIO, SENHA);
         }
 
