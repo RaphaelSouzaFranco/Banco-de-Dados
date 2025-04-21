@@ -9,7 +9,7 @@ public class Receitas {
     private String data;
     private String origem;
     private Date vencimento;
-    private String categoriaReceitas;
+    private String categoriaReceita;
     private String descricao;
     private String status;
     private String formaPagamento;
@@ -21,7 +21,7 @@ public class Receitas {
         this.origem = origem;
         this.idReceitas = idReceitas;
         this.vencimento = vencimento;
-        this.categoriaReceitas = categoriaReceitas;
+        this.categoriaReceita = categoriaReceita;
         this.descricao= descricao;
         this.status= status;
         this.formaPagamento = formaPagamento;
@@ -62,12 +62,12 @@ public class Receitas {
         this.vencimento = vencimento;
     }
 
-    public String getCategoriaReceitas() {
-        return categoriaReceitas;
+    public String getCategoriaReceita() {
+        return categoriaReceita;
     }
 
-    public void setCategoriaReceitas(String categoriaReceitas) {
-        this.categoriaReceitas = categoriaReceitas;
+    public void setCategoriaReceita(String categoriaReceita) {
+        this.categoriaReceita = categoriaReceita;
     }
 
     public String getDescricao() {
@@ -111,7 +111,7 @@ public class Receitas {
         System.out.println("Data: " + data);
         System.out.println("Origem: " + origem);
         System.out.println("Vencimento: " + vencimento);
-        System.out.println("Categoria: " + categoriaReceitas);
+        System.out.println("Categoria: " + categoriaReceita);
         System.out.println("Descrição: " + descricao);
         System.out.println("Status: " + status);
         System.out.println("Forma de Pagamento: "+ formaPagamento);

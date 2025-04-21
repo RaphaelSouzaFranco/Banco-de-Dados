@@ -9,9 +9,9 @@ public class ConnectionFactory {
 
     private static final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl";
 
-    private static final String USUARIO = "USUARIO";
+    private static final String USUARIO = "RM560334";
 
-    private static final String SENHA = "SENHA";
+    private static final String SENHA = "160898";
 
     // método para obter uma conexão com o banco de dados
 
