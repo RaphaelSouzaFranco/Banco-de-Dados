@@ -9,7 +9,7 @@ public class CadastroReceitasView {
             try {
                 Connection conexao = ConnectionFactory.getConnection();
                 Statement stm = conexao.createStatement();
-                stm.executeUpdate("INSERT INTO RECEITAS (idReceitas, valor , data_recebimento, descricao, categoria_receitas, forma_pagamento, status, conta) VALUES (seq_receitas.nextval, 'Camiseta Branca', 'Camiseta de Algodão', 10.99, 100)");
+                stm.executeUpdate("INSERT INTO RECEITAS (idReceitas, valor , data_recebimento, descricao, categoria_receitas, forma_pagamento, status, conta) VALUES (seq_receitas.nextval, 1000.00, 26/03/2025, 'Recebimento de Salário', 'Pix', 'Recebido')");
                 System.out.println("Produto cadastrado!");
                 stm.close();
                 conexao.close();

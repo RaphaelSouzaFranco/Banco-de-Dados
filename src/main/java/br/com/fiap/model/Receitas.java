@@ -13,9 +13,10 @@ public class Receitas {
     private String descricao;
     private String status;
     private String formaPagamento;
+    private int conta;
 
 
-    public Receitas(double valor, String data, String origem, int idReceitas, Date vencimento, String categoriaReceitas, String descricao, String status, String formaPagamento  ) {
+    public Receitas(double valor, String data, String origem, int idReceitas, Date vencimento, String categoriaReceitas, String descricao, String status, String formaPagamento, int conta ) {
         this.valor = valor;
         this.data = data;
         this.origem = origem;
@@ -25,6 +26,15 @@ public class Receitas {
         this.descricao= descricao;
         this.status= status;
         this.formaPagamento = formaPagamento;
+        this.conta= conta;
+    }
+
+    public int getConta() {
+        return conta;
+    }
+
+    public void setConta(int conta) {
+        this.conta = conta;
     }
 
     public Receitas(double valor, String data, String origem) {
@@ -115,6 +125,7 @@ public class Receitas {
         System.out.println("Descrição: " + descricao);
         System.out.println("Status: " + status);
         System.out.println("Forma de Pagamento: "+ formaPagamento);
+        System.out.println("Conta: "+ conta);
 
     }
 }
