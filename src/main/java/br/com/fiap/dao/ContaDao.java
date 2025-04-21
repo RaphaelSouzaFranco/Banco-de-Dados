@@ -1,69 +1,108 @@
 package br.com.fiap.dao;
 
+import br.com.fiap.exception.EntidadeNaoEncontrada;
+import br.com.fiap.factory.ConnectionFactory;
 import br.com.fiap.model.Conta;
-
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContaDao {
+public class ContaDAO implements AutoCloseable {
+    private Connection conexao;
 
-        private static final String URL = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl";
-        private static final String USUARIO = "RM560334";
-        private static final String SENHA = "160898";
-
-        public static List<Conta> getAll() {
-            List<Conta> contas = new ArrayList<>();
-            String sql = "SELECT * FROM CONTAS";
-
-            try (Connection conn = conectar ();
-                 Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(sql)) {
-
-                while (rs.next()) {
-                    Conta conta = new Conta();
-                    conta.setNome(rs.getString("NOME"));
-                    conta.setSaldo(rs.getBigDecimal("SALDO"));
-                    conta.setBanco(rs.getString("BANCO"));
-                    conta.setAgencia(rs.getString("AGENCIA"));
-                    conta.setConta(rs.getString("CONTA"));
-                    conta.setTipoConta(Conta.TipoConta.valueOf(rs.getString("TIPO_CONTA")));
-                    contas.add(conta);
-                }
-
-            } catch (SQLException e) {
-                System.out.println("Erro ao consultar contas: " + e.getMessage());
-                e.printStackTrace();
-            }
-
-            return contas;
-        }
-
-        public static void insert(Conta conta) {
-            String sql = "INSERT INTO CONTAS (NOME, SALDO, BANCO, AGENCIA, CONTA, TIPO_CONTA) VALUES (?, ?, ?, ?, ?, ?)";
-
-            try (Connection conn = conectar ();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-                pstmt.setString(1, conta.getNome());
-                pstmt.setBigDecimal(2, conta.getSaldo());
-                pstmt.setString(3, conta.getBanco());
-                pstmt.setString(4, conta.getAgencia());
-                pstmt.setString(5, conta.getConta());
-                pstmt.setString(6, conta.getTipoConta().name()); // Usa o name do enum
-
-                pstmt.executeUpdate();
-                System.out.println("org.example.Conta inserida com sucesso: " + conta.getNome());
-
-
-            } catch (SQLException e) {
-                System.out.println("Erro ao inserir conta: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-        private static Connection conectar() throws SQLException {
-            return DriverManager.getConnection(URL, USUARIO, SENHA);
-        }
-
+    public ContaDAO() throws SQLException {
+        conexao = ConnectionFactory.getConnection();
     }
 
+    public void cadastrar(Conta conta) throws SQLException {
+        String sql = "INSERT INTO CONTA (id_conta, nome_conta, banco, saldo, tipo_conta) " +
+                "VALUES (seq_conta.nextval, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conexao.prepareStatement(sql)) {
+            ps.setString(1, conta.getNomeConta());
+            ps.setString(2, conta.getBanco());
+            ps.setBigDecimal(3, conta.getSaldo());
+            ps.setString(4, conta.getTipoConta().name());
+            ps.executeUpdate();
+        }
+    }
+
+    public void remover(Long codigo) throws SQLException, EntidadeNaoEncontrada {
+        String sql = "DELETE FROM CONTA WHERE id_conta = ?";
+
+        try (PreparedStatement stm = conexao.prepareStatement(sql)) {
+            stm.setLong(1, codigo);
+            int linha = stm.executeUpdate();
+            if (linha == 0) {
+                throw new EntidadeNaoEncontrada("Conta não encontrada para ser removida");
+            }
+        }
+    }
+
+    public Conta pesquisar(Long codigo) throws SQLException, EntidadeNaoEncontrada {
+        String sql = "SELECT * FROM conta WHERE id_conta = ?";
+
+        try (PreparedStatement stm = conexao.prepareStatement(sql)) {
+            stm.setLong(1, codigo);
+
+            try (ResultSet result = stm.executeQuery()) {
+                if (!result.next()) {
+                    throw new EntidadeNaoEncontrada("Conta não encontrada");
+                }
+
+                Long id = result.getLong("id_conta");
+                String nome = result.getString("nome_conta");
+                String banco = result.getString("banco");
+                BigDecimal saldo = result.getBigDecimal("saldo");
+                Conta.TipoConta tipoConta = Conta.TipoConta.valueOf(result.getString("tipo_conta"));
+
+                return new Conta(id, nome, banco, saldo, tipoConta);
+            }
+        }
+    }
+
+    public List<Conta> getAll() throws SQLException {
+        List<Conta> lista = new ArrayList<>();
+        String sql = "SELECT * FROM conta";
+
+        try (PreparedStatement stm = conexao.prepareStatement(sql);
+             ResultSet result = stm.executeQuery()) {
+
+            while (result.next()) {
+                Long id = result.getLong("id_conta");
+                String nome = result.getString("nome_conta");
+                String banco = result.getString("banco");
+                BigDecimal saldo = result.getBigDecimal("saldo");
+                Conta.TipoConta tipoConta = Conta.TipoConta.valueOf(result.getString("tipo_conta"));
+
+                lista.add(new Conta(id, nome, banco, saldo, tipoConta));
+            }
+        }
+        return lista;
+    }
+
+    public void atualizar(Conta conta) throws SQLException {
+        String sql = "UPDATE CONTA SET nome_conta = ?, banco = ?, saldo = ?, tipo_conta = ? WHERE id_conta = ?";
+
+        try (PreparedStatement stm = conexao.prepareStatement(sql)) {
+            stm.setString(1, conta.getNomeConta());
+            stm.setString(2, conta.getBanco());
+            stm.setBigDecimal(3, conta.getSaldo());
+            stm.setString(4, conta.getTipoConta().name());
+            stm.setLong(5, conta.getIdConta());
+            stm.executeUpdate();
+        }
+    }
+
+    public void fecharConexao() throws SQLException {
+        if (conexao != null && !conexao.isClosed()) {
+            conexao.close();
+        }
+    }
+
+    @Override
+    public void close() throws SQLException {
+        fecharConexao();
+    }
+}
