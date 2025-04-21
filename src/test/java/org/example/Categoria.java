@@ -10,6 +10,9 @@ public class Categoria {
         this.nome = nome;
         this.tipo = tipo;
         this.descricao = descricao;
+
+        System.out.println("Categoria criada: " + nome + ", Tipo: " + tipo + ", descrição: " + descricao);
+
     }
 
      public String getNome() {
@@ -35,5 +38,4 @@ public class Categoria {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-     System.out.println("Categoria criada: " + nome + ", Tipo: " + tipo + ", Descrição: " + descricao);
 }
