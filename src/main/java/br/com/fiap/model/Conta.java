@@ -3,13 +3,14 @@ package br.com.fiap.model;
 import java.math.BigDecimal;
 
 public class Conta {
-
-    private String nome;
-    private BigDecimal saldo;
+    private Long idConta;  // Alterado de String para Long
+    private String nomeConta;
     private String banco;
-    private String agencia;
-    private String conta;
+    private BigDecimal saldo;
     private TipoConta tipoConta;
+
+
+
 
     public enum TipoConta {
         CORRENTE("org.example.Conta Corrente"),
@@ -32,25 +33,27 @@ public class Conta {
         }
     }
 
-    public Conta() {
-    }
+    // Getters e Setters atualizados
+    public Long getIdConta() { return idConta; }
+    public void setIdConta(Long idConta) { this.idConta = idConta; }
 
-    public Conta(String nome, BigDecimal saldo, String banco, String agencia, String conta, TipoConta tipoConta) {
-        this.nome = nome;
-        this.saldo = saldo;
+
+
+
+    public Conta(Long id, String nome, String banco, BigDecimal saldo, TipoConta tipoConta) {
+        this.idConta = id;
+        this.nomeConta = nome;
         this.banco = banco;
-        this.agencia = agencia;
-        this.conta = conta;
+        this.saldo = saldo;
         this.tipoConta = tipoConta;
+
+    }
+        public String getNomeConta() {
+        return nomeConta;
     }
 
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeConta(String nome) {
+        this.nomeConta = nome;
     }
 
     public BigDecimal getSaldo() {
@@ -69,21 +72,6 @@ public class Conta {
         this.banco = banco;
     }
 
-    public String getAgencia() {
-        return agencia;
-    }
-
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
-
-    public String getConta() {
-        return conta;
-    }
-
-    public void setConta(String conta) {
-        this.conta = conta;
-    }
 
     public TipoConta getTipoConta() {
         return tipoConta;
@@ -95,13 +83,13 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "org.example.Conta{" +
-                "nome='" + nome + '\'' +
-                ", saldo=" + saldo +
-                ", banco='" + banco + '\'' +
-                ", agencia='" + agencia + '\'' +
-                ", conta='" + conta + '\'' +
+        return "Conta{" +
+                "nome='" + nomeConta + '\'' +
+                ", banco=" + banco + '\'' +
+                ", saldo='" + saldo + '\'' +
                 ", tipoConta='" + tipoConta + '\'' +
                 '}';
     }
+
+
 }
