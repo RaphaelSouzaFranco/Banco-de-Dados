@@ -11,7 +11,7 @@ public class Categoria {
         this.tipo = tipo;
         this.descricao = descricao;
 
-        System.out.println("Categoria criada: " + nome + ", Tipo: " + tipo + ", descrição: " + descricao);
+        // System.out.println("Categoria criada: " + nome + ", Tipo: " + tipo + ", descrição: " + descricao);
 
     }
 
