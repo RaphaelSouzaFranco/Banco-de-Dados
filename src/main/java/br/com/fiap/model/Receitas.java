@@ -3,6 +3,7 @@ package br.com.fiap.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+
 public class Receitas {
     private int id_Receitas ;
     private Date data_Recebimento;
