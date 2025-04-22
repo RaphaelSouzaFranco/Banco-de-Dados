@@ -1,24 +1,39 @@
+
 import br.com.fiap.dao.ContaDAO;
 import br.com.fiap.model.Conta;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TesteConta {
-    public static void main(String[] args) throws SQLException {
-        ContaDAO contaDAO = new ContaDAO();
+    public static void main(String[] args) {
+        try (ContaDAO contaDAO = new ContaDAO()) {
+            System.out.println("=== ÚLTIMAS CONTAS CADASTRADAS ===");
+            System.out.println("ID | Nome | Banco | Saldo | Tipo Conta");
+            System.out.println("--------------------------------------");
 
-        contaDAO.cadastrar(new Conta(null, "João", "Banco A", new BigDecimal("1000.00"), Conta.TipoConta.CORRENTE));
-        contaDAO.cadastrar(new Conta(null, "Maria", "Banco B", new BigDecimal("2500.00"), Conta.TipoConta.POUPANCA));
-        contaDAO.cadastrar(new Conta(null, "Ana", "Banco C", new BigDecimal("500.00"), Conta.TipoConta.SALARIO));
-        contaDAO.cadastrar(new Conta(null, "Carlos", "Banco D", new BigDecimal("1200.00"), Conta.TipoConta.CORRENTE));
-        contaDAO.cadastrar(new Conta(null, "Fernanda", "Banco E", new BigDecimal("3000.00"), Conta.TipoConta.POUPANCA));
+            List<Conta> contas = contaDAO.listar();
 
-        List<Conta> contas = contaDAO.getAll();
-        for (Conta c : contas) {
-            System.out.println(c);
+            // Ordena por ID decrescente e limita a 5 registros
+            List<Conta> recentes = contas.stream()
+                    .sorted((c1, c2) -> c2.getIdConta().compareTo(c1.getIdConta()))
+                    .limit(5)
+                    .collect(Collectors.toList());
+
+            if (recentes.isEmpty()) {
+                System.out.println("Nenhuma conta cadastrada recentemente.");
+            } else {
+                for (Conta c : recentes) {
+                    System.out.printf("%-3d| %-10s| %-10s| R$%-8.2f| %s%n",
+                            c.getIdConta(),
+                            c.getNomeConta(),
+                            c.getBanco(),
+                            c.getSaldo(),
+                            c.getTipoConta().getDescricao());
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao acessar o banco: " + e.getMessage());
         }
-
-        contaDAO.fecharConexao();
     }
 }
