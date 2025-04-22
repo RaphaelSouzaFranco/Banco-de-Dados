@@ -15,11 +15,11 @@ public class CategoriaCadastroView {
         Categoria cat4 = new Categoria("Alimentação", "Débito", "Comida BK");
         Categoria cat5 = new Categoria("Educação", "Crédito", "Boleto escola");
 
-//        catDAO.adicionarCategoria(cat1);
-//        catDAO.adicionarCategoria(cat2);
-//        catDAO.adicionarCategoria(cat3);
-//        catDAO.adicionarCategoria(cat4);
-//        catDAO.adicionarCategoria(cat5);
+        catDAO.adicionarCategoria(cat1);
+        catDAO.adicionarCategoria(cat2);
+        catDAO.adicionarCategoria(cat3);
+        catDAO.adicionarCategoria(cat4);
+        catDAO.adicionarCategoria(cat5);
 
         List<Categoria> cats;
         cats = catDAO.obterTodas();
