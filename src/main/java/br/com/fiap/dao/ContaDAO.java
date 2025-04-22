@@ -62,7 +62,7 @@ public class ContaDAO implements AutoCloseable {
         }
     }
 
-    public List<Conta> getAll() throws SQLException {
+    public List<Conta> listar() throws SQLException {
         List<Conta> lista = new ArrayList<>();
         String sql = "SELECT * FROM conta";
 
@@ -95,14 +95,10 @@ public class ContaDAO implements AutoCloseable {
         }
     }
 
-    public void fecharConexao() throws SQLException {
+    @Override
+    public void close() throws SQLException {
         if (conexao != null && !conexao.isClosed()) {
             conexao.close();
         }
-    }
-
-    @Override
-    public void close() throws SQLException {
-        fecharConexao();
     }
 }
