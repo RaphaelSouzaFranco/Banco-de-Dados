@@ -12,8 +12,8 @@ public class ListagemDespesaView {
             DespesaDao dao = new DespesaDao();
             List<Despesa> despesas = dao.listar();
             for (Despesa despesa : despesas) {
-                System.out.println(despesa.getDescricao() + " R$ " + despesa.getValor() + " " + despesa.getCategoriaDespesa() + " paga em: " + despesa.getDataPagamento() + " com vencimento em: " + despesa.getVencimento() + " " +
-                        "despesa está: " + despesa.getStatusDespesa() + "\n  " + despesa.getRecorrente() + " " + despesa.getUsuarioId() + " " + despesa.getContaId());
+                System.out.println("|Descrição: " + despesa.getDescricao() + " |R$ " + despesa.getValor() + " | " + despesa.getCategoriaDespesa() + " | Paga em: " + despesa.getDataPagamento() + " | Com vencimento em: " + despesa.getVencimento() + " | " +
+                        "| Status: " + despesa.getStatusDespesa() + " |Recorrente:   " + despesa.getRecorrente() + " | " + despesa.getUsuarioId() + " " + despesa.getContaId());
             }
             dao.fecharConexao();
 
@@ -22,4 +22,3 @@ public class ListagemDespesaView {
         }
     }
 }
-
